@@ -8,6 +8,7 @@ const ExploreItems = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [visibleItems, setVisibleItems] = useState(8);
+  const [filter, setFilter] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -30,7 +31,11 @@ const ExploreItems = () => {
   return (
     <>
       <div>
-        <select id="filter-items" defaultValue="">
+        <select 
+          id="filter-items" 
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
           <option value="price_high_to_low">Price, High to Low</option>
@@ -41,7 +46,19 @@ const ExploreItems = () => {
       ? new Array(8).fill(0).map((_, i) => (
         <SkeletonCard key={i} />
       ))
-      : items.slice(0, visibleItems).map((item, index) => (
+      : [...items]
+        .sort((a, b) => {
+          if (filter === 'price_low_to_high') {
+            return a.price - b.price;
+          } else if (filter === 'price-high-to-low') {
+            return b.price - a.price;
+          } else if (filter === 'likes_high_to_low') {
+            return b.likes - a.likes;
+          }
+          return 0;
+        })
+        .slice(0, visibleItems)
+        .map((item, index) => (
         <div
           key={index}
           className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
