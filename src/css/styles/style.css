@@ -16729,3 +16729,33 @@ img {
 .no-cursor {
   cursor: not-allowed;
 }
+
+.skeleton-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e2e2e2;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-text {
+  height: 10px;
+  background: #e2e2e2;
+  margin-top: 6px;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-text.short {
+  width: 100px;
+}
+
+.skeleton-text.tiny {
+  width: 50px;
+}
+
+@keyframes pulse {
+  0% { opacity: 1 }
+  50% { opacity: 0.4 }
+  100% { opacity: 1 }
+}
