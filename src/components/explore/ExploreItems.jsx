@@ -6,14 +6,22 @@ import Countdown from '../Countdown';
 
 const ExploreItems = () => {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [visibleItems, setVisibleItems] = useState(8);
+  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setLoading(true);
 
-    axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/explore')
+    let apiUrl = 'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore';
+
+    if (filter) {
+      apiUrl += `?filter=${filter}`;
+    }
+
+    axios
+      .get(apiUrl)
       .then((res) => {
         setItems(res.data);
         setLoading(false);
@@ -22,7 +30,7 @@ const ExploreItems = () => {
         console.error('Error fetching data', err);
         setLoading(false);
       });
-  }, []);
+  }, [filter]);
 
   const loadMore = () => {
     setVisibleItems((prev) => prev + 4);
@@ -39,26 +47,13 @@ const ExploreItems = () => {
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
           <option value="price_high_to_low">Price, High to Low</option>
-          <option value="likes_high_to_low">Most liked</option>
+          <option value="likes_high_to_low">Most Liked</option>
         </select>
       </div>
+
       {loading 
-      ? new Array(8).fill(0).map((_, i) => (
-        <SkeletonCard key={i} />
-      ))
-      : [...items]
-        .sort((a, b) => {
-          if (filter === 'price_low_to_high') {
-            return a.price - b.price;
-          } else if (filter === 'price-high-to-low') {
-            return b.price - a.price;
-          } else if (filter === 'likes_high_to_low') {
-            return b.likes - a.likes;
-          }
-          return 0;
-        })
-        .slice(0, visibleItems)
-        .map((item, index) => (
+      ? new Array(8).fill(0).map((_, i) => <SkeletonCard key={i} />)
+      : items.slice(0, visibleItems).map((item, index) => (
         <div
           key={index}
           className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
@@ -67,7 +62,7 @@ const ExploreItems = () => {
           <div className="nft__item">
             <div className="author_list_pp">
               <Link
-                to={`./author/${item.authorId}`}
+                to={`/author/${item.authorId}`}
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
               >
@@ -112,14 +107,14 @@ const ExploreItems = () => {
           </div>
         </div>
       ))}
-      <div className="col-md-12 text-center">
         {visibleItems < items.length && (
+      <div className="col-md-12 text-center">
           <button className='btn-main lead' onClick={loadMore}>
             Load more
           </button>
-        )}
-      </div>
-    </>
+        </div>
+     )}
+  </>
   );
 };
 
