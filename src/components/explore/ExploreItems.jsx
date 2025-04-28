@@ -53,7 +53,9 @@ const ExploreItems = () => {
 
       {loading 
       ? new Array(8).fill(0).map((_, i) => <SkeletonCard key={i} />)
-      : items.slice(0, visibleItems).map((item, index) => (
+      : items.slice(0, visibleItems).map((item, index) => {
+        console.log(item)
+        return (
         <div
           key={index}
           className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
@@ -106,7 +108,10 @@ const ExploreItems = () => {
             </div>
           </div>
         </div>
-      ))}
+      )
+    })
+  }
+  
         {visibleItems < items.length && (
       <div className="col-md-12 text-center">
           <button className='btn-main lead' onClick={loadMore}>
