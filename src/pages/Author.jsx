@@ -34,7 +34,12 @@ const Author = () => {
           id="profile_banner"
           aria-label="section"
           className="text-light"
-          style={{ background: author?.authorBanner ? `url(${author.authorBanner})` : 'none', backgroundPosition: 'top' }}
+          style={{ 
+            background: 'url(https://nft-place.web.app/static/media/static-1.0299eed903ee71c8c953.jpg)', 
+            backgroundPosition: 'top',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+           }}
         ></section>
 
         <section aria-label="section">
