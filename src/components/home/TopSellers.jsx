@@ -41,7 +41,7 @@ const TopSellers = () => {
               ? new Array(12).fill(0).map((_, i) => <SkeletonSeller key={i} />)
               : sellers.map((item) => (
                 <li key={item.id}>
-                  <div className="author_list_pp">
+                  <div className="author_list_pp" data-aos='zoom-in'>
                     <Link to={`/author/${item.authorId}`}>
                       <img
                         className="lazy pp-author"
@@ -51,7 +51,7 @@ const TopSellers = () => {
                       <i className="fa fa-check"></i>
                     </Link>
                   </div>
-                  <div className="author_list_info">
+                  <div className="author_list_info" data-aos='zoom-in'>
                     <Link to={`/author/${item.authorId}`}>{item.authorName}</Link>
                     <span>{item.price} ETH</span>
                   </div>

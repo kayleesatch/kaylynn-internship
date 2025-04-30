@@ -114,7 +114,7 @@ const ExploreItems = () => {
   
         {visibleItems < items.length && (
       <div className="col-md-12 text-center">
-          <button className='btn-main lead' onClick={loadMore}>
+          <button className='btn-main lead' data-aos='fade-zoom-in' data-aos-easing='ease-in-back' data-aos-delay='100' onClick={loadMore}>
             Load more
           </button>
         </div>
