@@ -25,7 +25,13 @@ const Carousel = ({ children }) => {
         ],
     };
 
-  return <Slider {...settings}>{children}</Slider>;
+  return <Slider {...settings}>
+    {React.Children.map(children, (child, index) => (
+        <div className='px-2' key={index}>
+            {child}
+        </div>
+    ))}
+    </Slider>;
 };
 
 export default Carousel;
