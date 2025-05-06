@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Carousel from '../Carousel';
-import SkeletonCard from '../SkeletonCard';
+import SkeletonNewItems from '../SkeletonNewItems';
 import Countdown from '../Countdown';
 
 const NewItems = () => {
@@ -41,7 +41,7 @@ const NewItems = () => {
           <div className="col-lg-12">
             <Carousel>
               {loading 
-                ? new Array(4).fill(0).map((_, i) => <SkeletonCard key={i} /> )
+                ? new Array(4).fill(0).map((_, i) => <SkeletonNewItems key={i} /> )
                 : items.map((item, index) => (
             <div className="nft__item" key={index}>
               <div className="author_list_pp">
@@ -55,7 +55,7 @@ const NewItems = () => {
                   <i className="fa fa-check"></i>
                 </Link>
               </div>
-              <Countdown expiryDate={item.expiryDate} />
+                <Countdown expiryDate={item.expiryDate} />
 
               <div className="nft__item_wrap">
                 <div className="nft__item_extra">

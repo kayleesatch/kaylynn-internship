@@ -16738,6 +16738,15 @@ img {
   animation: pulse 1.5s infinite ease-in-out;
 }
 
+.skeleton-countdown {
+  width: 120px;
+  height: 35px;
+  border-radius: 20px;
+  background: #e2e2e2;
+  animation: pulse 1.5s infinite ease-in-out;
+  margin: 10px 0;
+}
+
 .skeleton-text {
   height: 10px;
   background: #e2e2e2;

@@ -8,20 +8,30 @@ const Author = () => {
   const { authorId } = useParams();
   const [author, setAuthor] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [followed, setFollowed] = useState(false);
+  const [followers, setFollowers] = useState(0);
 
   useEffect(() => {
     console.log('Author ID from URL', authorId)
     axios
-    .get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${authorId}`)
-    .then ((res) => {
-      setAuthor(res.data);
-      setLoading(false);
+      .get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${authorId}`)
+      .then ((res) => {
+        setAuthor(res.data);
+        setFollowers(res.data.followers)
+        setLoading(false);
     })
     .catch((err) => {
       console.error('Error fetching author data', err);
       setLoading(false);
     });
   }, [authorId]);
+
+  const handleFollowClick = () => {
+    if (!followed) {
+      setFollowers(followers + 1);
+      setFollowed(true);
+    }
+  }
 
   if (loading) return <SkeletonAuthor />;
 
@@ -74,10 +84,10 @@ const Author = () => {
                   </div>
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">{author.followers} followers</div>
-                      <Link to="#" className="btn-main">
-                        Follow
-                      </Link>
+                      <div className="profile_follower">{followers} followers</div>
+                      <button className="btn-main" onClick={handleFollowClick} disabled={followed}>
+                        {followed ? 'Followed' : 'Follow'}
+                        </button>
                     </div>
                   </div>
                 </div>

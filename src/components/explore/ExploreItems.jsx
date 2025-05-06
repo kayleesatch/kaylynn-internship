@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import SkeletonCard from "../SkeletonCard";
+import SkeletonExplore from "../SkeletonExplore";
 import axios from 'axios';
 import Countdown from '../Countdown';
 
@@ -42,7 +42,10 @@ const ExploreItems = () => {
         <select 
           id="filter-items" 
           value={filter}
-          onChange={(e) => setFilter(e.target.value)}
+          onChange={(e) => {
+            setFilter(e.target.value)
+            setVisibleItems(8);
+          }}
         >
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
@@ -52,7 +55,7 @@ const ExploreItems = () => {
       </div>
 
       {loading 
-      ? new Array(8).fill(0).map((_, i) => <SkeletonCard key={i} />)
+      ? new Array(8).fill(0).map((_, i) => <SkeletonExplore key={i} />)
       : items.slice(0, visibleItems).map((item, index) => {
         console.log(item)
         return (
